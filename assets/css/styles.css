@@ -1,24 +1,64 @@
 /* ─── TOKENS ─────────────────────────────────────── */
     :root {
+      color-scheme: light;
+
+      /* Brand primitives — fixed identity, never themed */
       --navy:   #1B2A5B;
       --navy-d: #111d3f;
       --navy-l: #243470;
       --gold:   #D4A23C;
       --gold-l: #e6b84f;
       --gold-d: #b8861e;
+      /* Deep gold: the only gold that passes 4.5:1 as text on a light surface */
+      --gold-deep: #82600F;
       --white:  #FFFFFF;
-      --bg:     #F2F2F0;
-      --bg-2:   #E8E8E6;
+
+      /* Semantic surfaces — these are what flip between themes */
+      --surface:   #FFFFFF;   /* cards, light sections */
+      --surface-2: #F2F2F0;   /* page ground, recessed panels */
+      --surface-3: #E8E8E6;   /* deepest light tone */
       --text:   #1a1a2e;
       --muted:  #5a6580;
+      --border: rgba(27,42,91,.09);
+      --border-strong: rgba(27,42,91,.16);
+      /* Gold used as *ink*. Sections on light ground redefine this to --gold-deep. */
+      --gold-ink: var(--gold);
+      --scrim: rgba(10,15,30,.55);
+
+      /* Legacy aliases kept so older rules keep resolving */
+      --bg:   var(--surface-2);
+      --bg-2: var(--surface-3);
+
+      /* Type */
+      --font-display: 'Barlow Condensed', 'Heebo', system-ui, sans-serif;
+      --font-body: 'Heebo', system-ui, -apple-system, sans-serif;
+
+      /* Radii */
       --r4: 4px;
       --r8: 8px;
       --r12: 12px;
       --r16: 16px;
+      --r-pill: 999px;
+
+      /* 4/8pt spacing rhythm */
+      --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+      --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+      --sp-9: 96px;
+
+      /* Elevation scale */
       --shadow-sm: 0 2px 8px rgba(27,42,91,.10);
       --shadow-md: 0 8px 32px rgba(27,42,91,.15);
       --shadow-lg: 0 20px 60px rgba(27,42,91,.22);
+
+      /* Layering scale */
+      --z-base: 1; --z-raised: 10; --z-sticky: 100; --z-nav: 1000; --z-menu: 1100;
+
+      /* Motion */
       --ease: cubic-bezier(.22,1,.36,1);
+      --ease-out: cubic-bezier(.16,1,.3,1);
+      --dur-fast: 150ms;
+      --dur: 250ms;
+      --dur-slow: 400ms;
     }
 
     /* ─── RESET ──────────────────────────────────────── */
@@ -30,7 +70,7 @@
     }
     body {
       font-family: 'Heebo', sans-serif;
-      background: var(--bg);
+      background: var(--surface-2);
       color: var(--text);
       direction: ltr;
       text-align: left;
@@ -65,7 +105,7 @@
       font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--gold-ink);
       background: rgba(212,162,60,.12);
       border: 1px solid rgba(212,162,60,.3);
       border-radius: 100px;
@@ -75,11 +115,11 @@
     .section-title {
       font-size: clamp(1.75rem, 4vw, 2.6rem);
       font-weight: 800;
-      color: var(--navy);
+      color: var(--heading-ink);
       line-height: 1.2;
       margin-bottom: 16px;
     }
-    .section-title span { color: var(--gold); }
+    .section-title span { color: var(--gold-ink); }
     .section-sub {
       font-size: 1.05rem;
       color: var(--muted);
@@ -495,7 +535,7 @@
 
     /* ─── FOUNDER ─────────────────────────────────────── */
     .founder {
-      background: var(--white) !important;
+      background: var(--surface) !important;
     }
     .founder-grid {
       display: grid;
@@ -547,7 +587,7 @@
     }
     .founder-body {
       font-size: .95rem;
-      color: #444;
+      color: var(--text);
       line-height: 1.85;
       margin-bottom: 16px;
     }
@@ -583,7 +623,7 @@
       color: var(--muted);
       line-height: 1.5;
     }
-    .founder-cred-text strong { color: var(--navy); font-weight: 700; }
+    .founder-cred-text strong { color: var(--heading-ink); font-weight: 700; }
 
     /* ─── WHO WE ARE ─────────────────────────────────── */
     .who { background: var(--navy-d) !important; }
@@ -654,7 +694,7 @@
     }
 
     /* ─── DISTINGUISH ────────────────────────────────── */
-    .distinguish { background: var(--bg) !important; }
+    .distinguish { background: var(--surface-2) !important; }
     .distinguish-header { text-align: center; margin-bottom: 64px; }
     .distinguish-header .section-sub { margin: 0 auto; }
     .distinguish-grid {
@@ -663,7 +703,7 @@
       gap: 24px;
     }
     .distinguish-card {
-      background: var(--white);
+      background: var(--surface);
       border-radius: var(--r16);
       padding: 32px 28px;
       border: 1px solid rgba(27,42,91,.08);
@@ -706,7 +746,7 @@
     .distinguish-card h3 {
       font-size: 1rem;
       font-weight: 700;
-      color: var(--navy);
+      color: var(--heading-ink);
       margin-bottom: 8px;
     }
     .distinguish-card p {
@@ -739,7 +779,7 @@
     }
 
     /* ─── PROGRAM ─────────────────────────────────────── */
-    .program { background: var(--white) !important; }
+    .program { background: var(--surface) !important; }
     .program-header { text-align: center; margin-bottom: 64px; }
     .program-header .section-sub { margin: 0 auto; }
     .program-grid {
@@ -775,8 +815,8 @@
       left: 20px;
       font-size: .72rem;
       font-weight: 800;
-      color: var(--gold);
-      opacity: .6;
+      color: var(--gold-ink);
+      opacity: 1;
       letter-spacing: .08em;
     }
     .program-icon {
@@ -795,7 +835,7 @@
     .program-card h3 {
       font-size: 1rem;
       font-weight: 800;
-      color: var(--navy);
+      color: var(--heading-ink);
       margin-bottom: 10px;
     }
     .program-card p {
@@ -805,7 +845,7 @@
     }
 
     /* ─── SERVICES ───────────────────────────────────── */
-    .services { background: var(--bg) !important; }
+    .services { background: var(--surface-2) !important; }
     .services-header { text-align: center; margin-bottom: 64px; }
     .services-header .section-sub { margin: 0 auto; }
     .services-grid {
@@ -814,7 +854,7 @@
       gap: 24px;
     }
     .service-card {
-      background: var(--white);
+      background: var(--surface);
       border-radius: var(--r16);
       padding: 36px 32px;
       border: 1px solid rgba(27,42,91,.07);
@@ -864,7 +904,7 @@
     .service-title-he {
       font-size: 1rem;
       font-weight: 800;
-      color: var(--navy);
+      color: var(--heading-ink);
       line-height: 1.2;
     }
     .service-title-en {
@@ -884,7 +924,7 @@
     .service-clubs-label {
       font-size: .72rem;
       font-weight: 700;
-      color: var(--navy);
+      color: var(--heading-ink);
       text-transform: uppercase;
       letter-spacing: .08em;
       margin-bottom: 6px;
@@ -898,7 +938,7 @@
       font-size: .72rem;
       font-weight: 600;
       background: rgba(27,42,91,.07);
-      color: var(--navy);
+      color: var(--heading-ink);
       padding: 3px 10px;
       border-radius: 100px;
       transition: background .2s ease, color .2s ease;
@@ -955,7 +995,7 @@
     }
 
     /* ─── VISION ─────────────────────────────────────── */
-    .vision { background: var(--white) !important; }
+    .vision { background: var(--surface) !important; }
     .vision-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -999,14 +1039,14 @@
       line-height: 1.65;
     }
     .vision-future {
-      background: var(--bg);
+      background: var(--surface-2);
       border-radius: var(--r16);
       padding: 36px 32px;
     }
     .vision-future h3 {
       font-size: 1.15rem;
       font-weight: 800;
-      color: var(--navy);
+      color: var(--heading-ink);
       margin-bottom: 20px;
     }
     .future-items {
@@ -1015,7 +1055,7 @@
       gap: 16px;
     }
     .future-item {
-      background: var(--white);
+      background: var(--surface);
       border-radius: var(--r12);
       padding: 20px;
       border: 1px solid rgba(27,42,91,.08);
@@ -1024,7 +1064,7 @@
     .future-item h4 {
       font-size: .9rem;
       font-weight: 700;
-      color: var(--navy);
+      color: var(--heading-ink);
       margin-bottom: 6px;
     }
     .future-item p {
@@ -1489,8 +1529,8 @@
       opacity: .65;
     }
     .kids-card-ref {
-      font-size: .69rem;
-      color: rgba(255,255,255,.28);
+      font-size: .72rem;
+      color: rgba(255,255,255,.55);
       border-top: 1px solid rgba(255,255,255,.06);
       padding-top: 12px;
       font-style: italic;
@@ -1664,4 +1704,704 @@ html[dir="rtl"] .kids-benefits li::before {
 html[dir="rtl"] .program-num {
   left: auto;
   right: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   DESIGN ENHANCEMENTS
+   1. Dark theme   2. Display typography   3. Contrast-safe gold ink
+   4. Skip link + theme toggle   5. Nav active state   6. Interaction polish
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─── 1. DARK THEME ────────────────────────────────────────────────────
+   Light sections become the darkest ground and navy sections sit just
+   above them, so the page keeps its alternating light/dark rhythm. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --gold-on-surface: var(--gold-l);
+    --surface:   #121A32;
+    --surface-2: #0A0F1E;
+    --surface-3: #1A2340;
+    --text:   #E9EDF7;
+    --muted:  #9DA8C6;
+    --border: rgba(255,255,255,.10);
+    --border-strong: rgba(255,255,255,.20);
+    --gold-ink: var(--gold-l);
+    --heading-ink: var(--text);
+    --scrim: rgba(0,0,0,.72);
+    --navy:   #1D2A5C;
+    --navy-d: #16204A;
+    --navy-l: #26356E;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.45);
+    --shadow-md: 0 10px 34px rgba(0,0,0,.55);
+    --shadow-lg: 0 24px 64px rgba(0,0,0,.65);
+  }
+}
+/* Same tokens again for the explicit choice: custom properties cannot be
+   shared between a media query and an attribute selector. Keep both in sync. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --gold-on-surface: var(--gold-l);
+  --surface:   #121A32;
+  --surface-2: #0A0F1E;
+  --surface-3: #1A2340;
+  --text:   #E9EDF7;
+  --muted:  #9DA8C6;
+  --border: rgba(255,255,255,.10);
+  --border-strong: rgba(255,255,255,.20);
+  --gold-ink: var(--gold-l);
+  --heading-ink: var(--text);
+  --scrim: rgba(0,0,0,.72);
+  --navy:   #1D2A5C;
+  --navy-d: #16204A;
+  --navy-l: #26356E;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,.45);
+  --shadow-md: 0 10px 34px rgba(0,0,0,.55);
+  --shadow-lg: 0 24px 64px rgba(0,0,0,.65);
+}
+:root { --heading-ink: var(--navy); }
+
+/* Hairline borders were hardcoded navy-tinted and vanish on dark ground. */
+/* Only the cards that sit on a LIGHT surface — their navy-tinted hairlines
+   disappear on a dark ground. The panels on navy gradients (.kids-card,
+   .services-tagline, .distinguish-quote, .vision-goal, .vision-goals-box)
+   keep their gold hairline: it is an accent, not a neutral divider. */
+.distinguish-card, .service-card, .future-item, .program-card {
+  border-color: var(--border);
+}
+/* Its 5%-navy tint reads as a card on white and as nothing on navy. */
+.program-card { background: var(--surface-3); }
+.club-tag { border-color: var(--border-strong); }
+
+/* ─── 2. DISPLAY TYPOGRAPHY ────────────────────────────────────────────
+   Barlow Condensed carries headings and figures — the athletic register
+   the brand was missing. Hebrew has no condensed cut, so it falls through
+   to Heebo per-glyph and the pages stay visually matched. */
+.hero-title, .hero-title-en, .section-title,
+.hero-stat .num, .kids-cred-num, .program-num,
+.footer-logo-en, .logo-en, .services-tagline .en {
+  font-family: var(--font-display);
+}
+.hero-title {
+  font-size: clamp(3.2rem, 9vw, 7rem);
+  letter-spacing: -.01em;
+  text-wrap: balance;
+}
+.section-title {
+  font-size: clamp(2rem, 4.4vw, 3.1rem);
+  letter-spacing: .002em;
+  text-wrap: balance;
+}
+.hero-title-en { font-weight: 600; }
+/* Figures must not reflow while counting up. */
+.hero-stat .num, .kids-cred-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.hero-stat .num { font-size: clamp(2.1rem, 3.4vw, 2.9rem); }
+.section-sub, .founder-body, .service-desc,
+.distinguish-card p, .program-card p { text-wrap: pretty; }
+
+/* Hebrew falls back to Heebo, which needs no negative tracking. */
+html[dir="rtl"] .hero-title,
+html[dir="rtl"] .section-title { letter-spacing: normal; }
+
+/* ─── 3. GOLD AS INK ───────────────────────────────────────────────────
+   #D4A23C on white is 2.1:1 — it fails as text. Sections sitting on a
+   light ground swap to the deep gold (4.9:1); gold stays bright wherever
+   the ground is navy. Decorative gold (rules, icons, borders) is untouched. */
+:root { --gold-on-surface: var(--gold-deep); }
+.founder, .distinguish, .program, .services, .vision { --gold-ink: var(--gold-on-surface); }
+.who, .kids-program, .cta-close, .footer, .hero { --gold-ink: var(--gold); }
+
+/* ─── 4. SKIP LINK ─────────────────────────────────────────────────────*/
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--sp-4);
+  z-index: var(--z-menu);
+  padding: 12px 20px;
+  background: var(--gold);
+  color: var(--navy-d);
+  font-weight: 700;
+  font-size: .9rem;
+  border-radius: var(--r8);
+  box-shadow: var(--shadow-md);
+  transition: top var(--dur) var(--ease-out);
+}
+.skip-link:focus-visible { top: var(--sp-4); }
+html[dir="rtl"] .skip-link { left: auto; right: var(--sp-4); }
+
+/* ─── 5. THEME TOGGLE ──────────────────────────────────────────────────*/
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: var(--r-pill);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  color: var(--white);
+  transition: background var(--dur-fast) ease, border-color var(--dur-fast) ease,
+              transform var(--dur) var(--ease);
+}
+.theme-toggle:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.34); }
+.theme-toggle:active { transform: scale(.94); }
+.theme-toggle svg { width: 18px; height: 18px; }
+/* Show the icon for the theme the button switches *to*. */
+.theme-toggle .icon-moon { display: none; }
+.theme-toggle .icon-sun  { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun  { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: block; }
+}
+:root[data-theme="dark"] .theme-toggle .icon-sun  { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+:root[data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+/* In the mobile sheet it sits inline with the links. */
+.mobile-menu .theme-toggle { width: auto; padding: 0 20px; height: 44px; gap: 10px; flex: 0 0 auto; }
+.mobile-menu .theme-toggle .toggle-label { font-weight: 600; font-size: 1rem; }
+.nav-links .theme-toggle .toggle-label { display: none; }
+
+/* ─── 6. NAV ACTIVE STATE ──────────────────────────────────────────────
+   Was an inline colour set from JS; now a class with a real indicator so
+   the current section is legible without relying on colour alone. */
+.nav-links a { position: relative; }
+.nav-links a.is-active { color: var(--gold); }
+.nav-links a.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  transform-origin: center;
+  animation: navIndicator var(--dur) var(--ease-out) both;
+}
+.nav-links a.nav-cta.is-active::after { display: none; }
+@keyframes navIndicator { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+
+/* ─── 7. NO-SCRIPT SAFETY ──────────────────────────────────────────────
+   .fade-in starts at opacity 0; without JS the whole page would be blank. */
+@media (scripting: none) {
+  .fade-in { opacity: 1 !important; transform: none !important; }
+}
+
+/* ─── 8. INTERACTION POLISH ────────────────────────────────────────────*/
+.distinguish-card, .program-card, .service-card, .kids-card, .future-item, .pillar {
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+              border-color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+/* Press feedback that reads on touch, where hover never fires. */
+.distinguish-card:active, .program-card:active, .service-card:active,
+.kids-card:active, .future-item:active {
+  transform: translateY(-2px) scale(.99);
+}
+.service-card:hover, .kids-card:hover, .future-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+.club-tag { transition: background var(--dur-fast) ease, color var(--dur-fast) ease, border-color var(--dur-fast) ease; }
+
+/* Every focusable surface gets the same ring, not just links and buttons. */
+main[tabindex="-1"]:focus { outline: none; }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: var(--r4);
+}
+
+::selection { background: var(--gold); color: var(--navy-d); }
+
+/* ─── 8b. TOUCH TARGETS ────────────────────────────────────────────────
+   Measured at 375px: the hamburger was 44x36, the nav CTA 42 tall, sheet
+   links 34, and the footer contact links 22. All below the 44px minimum. */
+.nav-hamburger {
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 0 -10px;
+}
+.nav-cta { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.mobile-menu a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.theme-toggle { width: 44px; height: 44px; flex-basis: 44px; }
+.contact-item a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 1024px) {
+  .footer-col ul a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* ─── 9. LAYOUT ────────────────────────────────────────────────────────*/
+/* Ten links plus a language switch, theme toggle and CTA stop fitting well
+   before 768px — the bar was overflowing the viewport between 768 and ~1000px.
+   Collapse to the sheet at the tablet boundary instead. */
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+@media (min-width: 1440px) {
+  .container { max-width: 1320px; }
+}
+/* Reserve room for the fixed bar when landing on an anchor. */
+html { scroll-padding-top: 96px; }
+
+/* ─── 10. REDUCED MOTION ───────────────────────────────────────────────
+   Re-stated after the new rules so nothing added above escapes it. */
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a.is-active::after { animation: none; }
+  .distinguish-card:active, .program-card:active, .service-card:active,
+  .kids-card:active, .future-item:active,
+  .service-card:hover, .kids-card:hover, .future-item:hover { transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HERO v2 — media slot, animated atmosphere, glass stats, club marquee
+   Motion brief: bold and energetic. Everything here is disabled under
+   prefers-reduced-motion by the block at the end of this file.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─── Media slot ───────────────────────────────────────────────────────
+   Empty until a real video/photo is dropped in. main.js adds .has-media
+   to .hero only once the media actually loads, so a missing or blocked
+   file degrades to the CSS atmosphere rather than a black rectangle. */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-video,
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+}
+/* Keeps headline contrast on top of arbitrary footage: a navy wash plus a
+   directional fade toward the text side. Inert until media exists. */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity .8s var(--ease-out);
+  background:
+    linear-gradient(100deg, rgba(10,17,36,.94) 0%, rgba(10,17,36,.82) 38%, rgba(17,29,63,.55) 70%, rgba(17,29,63,.68) 100%),
+    linear-gradient(to top, rgba(10,17,36,.95) 0%, transparent 32%);
+  pointer-events: none;
+}
+.hero.has-media .hero-scrim { opacity: 1; }
+/* With footage behind it the drawn atmosphere would fight the picture. */
+.hero.has-media .hero-pitch { opacity: .02; }
+.hero.has-media .hero-aurora { opacity: .35; }
+.hero.has-media .hero-beams { opacity: .3; }
+.hero.has-media .hero-circle { opacity: .35; }
+.hero.has-media .hero-crest { width: 260px; height: 260px; opacity: .9; }
+
+/* Redefined so the scroll parallax can reach a transform that an already
+   filled animation would otherwise own. Same name overrides the earlier one. */
+@keyframes crestIn {
+  from { opacity: 0; transform: translateY(calc(-50% + var(--parallax, 0px))) scale(.86); }
+  to   { opacity: 1; transform: translateY(calc(-50% + var(--parallax, 0px))) scale(1); }
+}
+.hero-crest { transition: width .6s var(--ease-out), height .6s var(--ease-out); }
+html[dir="rtl"] .hero-scrim {
+  background:
+    linear-gradient(260deg, rgba(10,17,36,.94) 0%, rgba(10,17,36,.82) 38%, rgba(17,29,63,.55) 70%, rgba(17,29,63,.68) 100%),
+    linear-gradient(to top, rgba(10,17,36,.95) 0%, transparent 32%);
+}
+
+.hero-bg, .hero-pitch, .hero-circle, .hero-accent { z-index: 1; }
+
+/* ─── Aurora ───────────────────────────────────────────────────────────
+   Three slow blooms drifting on independent cycles. Blur is applied to a
+   small element rather than a large one to keep the filter cheap. */
+.hero-aurora {
+  position: absolute;
+  inset: -10%;
+  z-index: 1;
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: .9;
+  transition: opacity .8s var(--ease-out);
+}
+.hero-aurora span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  will-change: transform;
+}
+.hero-aurora span:nth-child(1) {
+  width: 46vw; height: 46vw; max-width: 620px; max-height: 620px;
+  top: 4%; left: 6%;
+  background: radial-gradient(circle, rgba(212,162,60,.42) 0%, rgba(212,162,60,0) 70%);
+  animation: auroraA 18s ease-in-out infinite;
+}
+.hero-aurora span:nth-child(2) {
+  width: 40vw; height: 40vw; max-width: 540px; max-height: 540px;
+  bottom: 2%; right: 8%;
+  background: radial-gradient(circle, rgba(58,84,178,.52) 0%, rgba(58,84,178,0) 70%);
+  animation: auroraB 22s ease-in-out infinite;
+}
+.hero-aurora span:nth-child(3) {
+  width: 30vw; height: 30vw; max-width: 400px; max-height: 400px;
+  top: 42%; left: 48%;
+  background: radial-gradient(circle, rgba(230,184,79,.28) 0%, rgba(230,184,79,0) 70%);
+  animation: auroraC 26s ease-in-out infinite;
+}
+@keyframes auroraA {
+  0%,100% { transform: translate3d(0,0,0) scale(1); }
+  33%     { transform: translate3d(14vw,8vh,0) scale(1.18); }
+  66%     { transform: translate3d(5vw,-7vh,0) scale(.92); }
+}
+@keyframes auroraB {
+  0%,100% { transform: translate3d(0,0,0) scale(1.05); }
+  40%     { transform: translate3d(-13vw,-9vh,0) scale(.88); }
+  70%     { transform: translate3d(-5vw,6vh,0) scale(1.2); }
+}
+@keyframes auroraC {
+  0%,100% { transform: translate3d(0,0,0) scale(.95); }
+  50%     { transform: translate3d(-9vw,10vh,0) scale(1.25); }
+}
+
+/* ─── Floodlight beams ─────────────────────────────────────────────────
+   Raked shafts that sweep across, like stadium lights during a night match. */
+.hero-beams {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .75;
+  transition: opacity .8s var(--ease-out);
+}
+.hero-beams span {
+  position: absolute;
+  top: -60%;
+  height: 220%;
+  width: 26vw;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,240,205,.09) 45%, rgba(255,255,255,0) 100%);
+  transform: rotate(14deg);
+  filter: blur(14px);
+  will-change: transform, opacity;
+}
+.hero-beams span:nth-child(1) { left: -30%; animation: beamSweep 11s ease-in-out infinite; }
+.hero-beams span:nth-child(2) { left: 10%;  animation: beamSweep 15s ease-in-out infinite 2.5s; opacity: .7; }
+.hero-beams span:nth-child(3) { left: 52%;  animation: beamSweep 19s ease-in-out infinite 5s;   opacity: .5; }
+@keyframes beamSweep {
+  0%, 100% { transform: rotate(14deg) translateX(-14vw); opacity: .25; }
+  50%      { transform: rotate(14deg) translateX(28vw);  opacity: .85; }
+}
+
+/* ─── Pointer spotlight (desktop only) ─────────────────────────────────
+   Coordinates come from main.js as --mx/--my; it stays invisible until
+   the pointer actually moves, so touch devices never see it. */
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s ease;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(212,162,60,.16) 0%, rgba(212,162,60,.06) 38%, transparent 70%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero:hover .hero-spotlight { opacity: 1; }
+}
+
+/* ─── Kinetic headline ─────────────────────────────────────────────────*/
+.hero-title .w {
+  display: inline-block;
+  animation: wordIn .9s var(--ease-out) both;
+}
+.hero-title .w:nth-child(1) { animation-delay: .18s; }
+.hero-title .w:nth-child(2) { animation-delay: .30s; }
+.hero-title .w:nth-child(3) { animation-delay: .42s; }
+@keyframes wordIn {
+  from { opacity: 0; transform: translateY(28px) rotate(-1.2deg); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0) rotate(0); filter: blur(0); }
+}
+/* The gold sweep runs across the accent word on a long, unhurried cycle. */
+.hero-title .w.hero-title-accent {
+  background: linear-gradient(100deg,
+    var(--gold) 0%, var(--gold-l) 18%, #FFF3D2 30%, var(--gold-l) 42%, var(--gold) 60%, var(--gold) 100%);
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: wordIn .9s var(--ease-out) .42s both, goldSweep 7s linear 1.6s infinite;
+}
+@keyframes goldSweep {
+  from { background-position: 180% 0; }
+  to   { background-position: -80% 0; }
+}
+/* The whole hero title sits above the media/scrim stack. */
+.hero-content { z-index: 3; }
+
+/* ─── Stats as a glass panel ───────────────────────────────────────────*/
+.hero-stats.is-panel {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: var(--r16);
+  padding: 24px 28px;
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  box-shadow: 0 18px 50px rgba(5,10,26,.35);
+}
+.hero-stats.is-panel::before { left: 28px; }
+html[dir="rtl"] .hero-stats.is-panel::before { left: auto; right: 28px; }
+
+/* ─── Partner-club marquee ─────────────────────────────────────────────
+   Two identical sets translate by exactly -50% for a seamless loop. */
+.hero-clubs {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 3;
+  padding: 14px 0 18px;
+  background: linear-gradient(to top, rgba(8,13,30,.85), rgba(8,13,30,0));
+  border-top: 1px solid rgba(212,162,60,.14);
+}
+.hero-clubs-label {
+  text-align: center;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 10px;
+}
+.hero-clubs-viewport {
+  overflow: hidden;
+  /* Fade the ends so items enter and leave instead of being cut. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+.hero-clubs-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+  will-change: transform;
+}
+.hero-clubs:hover .hero-clubs-track { animation-play-state: paused; }
+.hero-clubs-set {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  padding-inline-end: 44px;
+  margin: 0;
+  list-style: none;
+}
+.hero-clubs-set li {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.62);
+  white-space: nowrap;
+  transition: color var(--dur-fast) ease;
+}
+.hero-clubs-set li:hover { color: var(--gold-l); }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+/* In RTL the strip must travel the other way to read naturally. */
+html[dir="rtl"] .hero-clubs-track { animation-name: marqueeRtl; }
+@keyframes marqueeRtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(50%); }
+}
+
+/* Room for the strip, and the scroll cue lifted clear of it. */
+.hero-content { padding-bottom: 190px; }
+.hero-scroll { bottom: 108px; }
+
+@media (max-width: 768px) {
+  .hero-clubs-label { font-size: .6rem; }
+  .hero-clubs-set { gap: 28px; padding-inline-end: 28px; }
+  .hero-clubs-set li { font-size: .88rem; }
+  .hero-content { padding-bottom: 170px !important; }
+  .hero-scroll { display: none; }
+  .hero-stats.is-panel { padding: 20px 18px; }
+  .hero-beams span { width: 44vw; }
+}
+
+/* ─── Reduced motion ───────────────────────────────────────────────────
+   Ambient motion is decorative, so it stops entirely rather than running
+   at 0.01ms; the marquee parks at its start and stays readable. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora span,
+  .hero-beams span,
+  .hero-title .w,
+  .hero-title-accent,
+  .hero-clubs-track { animation: none !important; }
+  .hero-title .w.hero-title-accent { color: var(--gold); -webkit-text-fill-color: var(--gold); }
+  .hero-spotlight { display: none; }
+  .hero-clubs-track { transform: none; }
+}
+
+/* ─── Hero height budget ───────────────────────────────────────────────
+   The club strip is the hero's credibility payload, so it has to sit above
+   the fold. Measured at 1440x900 the hero came to 1246px: 200 of that was
+   the generic `section` padding double-counting on a full-bleed hero, and
+   the rest was loose vertical rhythm. */
+.hero { padding: 0; }
+.hero-content { padding-top: 108px; padding-bottom: 148px; }
+
+/* On short desktop viewports, tighten type and rhythm rather than letting
+   the strip fall off screen. Tall screens keep the full-size headline. */
+@media (min-width: 1025px) and (max-height: 980px) {
+  .hero-title { font-size: clamp(2.6rem, 5.4vw, 5.4rem); }
+  .hero-content { padding-top: 92px; padding-bottom: 138px; }
+  .hero-badge { margin-bottom: 18px; }
+  .hero-title-en { margin-bottom: 14px; }
+  .hero-tagline { margin-bottom: 28px; }
+  .hero-stats.is-panel { margin-top: 28px; padding: 18px 24px; }
+  .hero-crest { width: 380px; height: 380px; }
+}
+@media (min-width: 1025px) and (max-height: 820px) {
+  .hero-title { font-size: clamp(2.4rem, 4.6vw, 4.4rem); }
+  .hero-tagline { margin-bottom: 22px; }
+  .hero-stats.is-panel { margin-top: 22px; }
+  .hero-scroll { display: none; }
+}
+
+/* ─── Hero foot ────────────────────────────────────────────────────────
+   The club strip now anchors the bottom and its motion already pulls the
+   eye downward; a second scroll affordance directly above it only crowded
+   the space between the stats panel and the strip. */
+.hero-scroll { display: none; }
+
+/* Bolder atmosphere — the brief was energetic, and the first pass read too
+   politely once the scrim-free hero was assembled. */
+.hero-aurora { filter: blur(58px); opacity: 1; }
+.hero-aurora span:nth-child(1) {
+  background: radial-gradient(circle, rgba(212,162,60,.58) 0%, rgba(212,162,60,0) 68%);
+}
+.hero-aurora span:nth-child(2) {
+  background: radial-gradient(circle, rgba(64,94,200,.62) 0%, rgba(64,94,200,0) 68%);
+}
+.hero-aurora span:nth-child(3) {
+  background: radial-gradient(circle, rgba(230,184,79,.38) 0%, rgba(230,184,79,0) 68%);
+}
+.hero-beams { opacity: .95; }
+.hero-beams span {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,240,205,.13) 45%, rgba(255,255,255,0) 100%);
+}
+
+/* Figures with a trailing "+" flip to "+6" under RTL bidi. Isolate them so
+   the suffix stays where it belongs in both languages. */
+.hero-stat .num,
+.kids-cred-num {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+html[dir="rtl"] .hero-stat .num,
+html[dir="rtl"] .kids-cred-num { display: inline-block; }
+
+/* ─── Hero on phones ───────────────────────────────────────────────────
+   Stacked full-width buttons and a 2x2 stat grid make the mobile hero
+   inherently tall. Tighten the vertical rhythm so the club strip reaches
+   the fold instead of sitting well below it. */
+@media (max-width: 768px) {
+  .hero-content { padding-top: 88px; padding-bottom: 124px !important; }
+  .hero-badge { margin-bottom: 16px; }
+  .hero-title { font-size: clamp(2.7rem, 12vw, 4rem); }
+  .hero-title-en { margin-bottom: 14px; }
+  .hero-tagline { margin-bottom: 26px; }
+  .hero-stats.is-panel { margin-top: 26px; padding: 16px 16px; }
+  .hero-clubs { padding: 10px 0 12px; }
+  .hero-clubs-label { margin-bottom: 7px; }
+}
+
+/* ─── Scrim, retuned against real footage ──────────────────────────────
+   The first pass was pitch-blind: 94% opacity at the left edge put white
+   text at 17.7:1 (4.5 is the bar) and flattened the video to near-black.
+   It was also aimed at the wrong band — once media shrinks the crest, the
+   headline occupies roughly 36-73% of the width, not the far left.
+   These stops keep the worst case (white kit, bright sky) above 4.5:1
+   while letting the footage read. */
+@media (min-width: 769px) {
+  .hero.has-media .hero-scrim {
+    background:
+      linear-gradient(100deg,
+        rgba(10,17,36,.70) 0%,
+        rgba(10,17,36,.80) 26%,
+        rgba(10,17,36,.76) 58%,
+        rgba(17,29,63,.52) 82%,
+        rgba(17,29,63,.40) 100%),
+      linear-gradient(to top, rgba(8,13,30,.94) 0%, rgba(8,13,30,.30) 20%, transparent 38%);
+  }
+  html[dir="rtl"] .hero.has-media .hero-scrim {
+    background:
+      linear-gradient(260deg,
+        rgba(10,17,36,.70) 0%,
+        rgba(10,17,36,.80) 26%,
+        rgba(10,17,36,.76) 58%,
+        rgba(17,29,63,.52) 82%,
+        rgba(17,29,63,.40) 100%),
+      linear-gradient(to top, rgba(8,13,30,.94) 0%, rgba(8,13,30,.30) 20%, transparent 38%);
+  }
+}
+/* On phones the copy spans the full width, so the wash has to be even. */
+@media (max-width: 768px) {
+  .hero.has-media .hero-scrim,
+  html[dir="rtl"] .hero.has-media .hero-scrim {
+    background:
+      linear-gradient(to bottom,
+        rgba(10,17,36,.84) 0%,
+        rgba(10,17,36,.80) 48%,
+        rgba(8,13,30,.93) 100%);
+  }
+}
+
+/* With footage behind them the drawn layers only add noise. */
+.hero.has-media .hero-pitch { opacity: .012; }
+.hero.has-media .hero-beams { opacity: .18; }
+.hero.has-media .hero-aurora { opacity: .28; }
+
+/* ─── Hero badge ───────────────────────────────────────────────────────
+   It was set to inline-flex, but as a child of the column-flex .hero-content
+   the default align-items:stretch overrode that and forced it edge to edge.
+   align-self makes it hug its text; in RTL flex-start follows `direction`,
+   so it anchors right on its own.
+
+   Toned down to match: the gold fill and border competed with the headline
+   directly beneath it. Now a quiet glass chip — same language as the stats
+   panel — with the pulsing dot as the only gold left. */
+.hero-badge {
+  align-self: flex-start;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.13);
+  color: rgba(255,255,255,.82);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  padding: 6px 15px 6px 13px;
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  max-width: 100%;
+}
+html[dir="rtl"] .hero-badge { padding: 6px 13px 6px 15px; }
+.hero-badge::before {
+  width: 5px; height: 5px;
+  flex: 0 0 5px;
+}
+@media (max-width: 768px) {
+  .hero-badge { font-size: .67rem; letter-spacing: .07em; padding: 6px 13px 6px 11px; }
 }

@@ -1,2 +1,14 @@
 .DS_Store
 Thumbs.db
+
+# Video masters — keep the repo shippable. Only the encoded hero files
+# (assets/media/hero.mp4 / hero.webm) belong in git.
+assets/media/*
+!assets/media/README.md
+!assets/media/hero.mp4
+!assets/media/hero.webm
+!assets/media/hero-mobile.mp4
+!assets/media/hero-mobile.webm
+
+# Local dev-server config
+.claude/
